@@ -1,5 +1,6 @@
 import React from 'react';
 
+<<<<<<< HEAD
 const Footer = () => {
     const footerStyle = {
         display: 'flex',
@@ -24,5 +25,14 @@ const Footer = () => {
         </div>
     );
 };
+=======
+function Footer() {
+    return (
+        <footer>
+            <p>This is a footer</p>
+        </footer>
+    );
+}
+>>>>>>> e198a60648dd02aaf2fec97ca33b1bba98eaeb36
 
 export default Footer;

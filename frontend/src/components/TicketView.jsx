@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 
 const TicketView = () => {
@@ -48,5 +49,19 @@ const TicketView = () => {
         </table>
     );
 };
+=======
+import React from 'react';
+
+class TicketView extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>Ticket View</h1>
+                {/* You can add more components or HTML elements here */}
+            </div>
+        );
+    }
+}
+>>>>>>> e198a60648dd02aaf2fec97ca33b1bba98eaeb36
 
 export default TicketView;
