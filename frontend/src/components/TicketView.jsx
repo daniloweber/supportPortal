@@ -116,7 +116,7 @@ const TicketView = () => {
     };
 
     const filterMenuStyle = {
-        marginTop: '120px',
+        marginTop: '20px',
         marginLeft: '20px',
         marginRight: '20px',
         display: 'flex',

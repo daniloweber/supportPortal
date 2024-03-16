@@ -1,16 +1,19 @@
 import React from 'react';
+import CreateTicket from './TicketErstellen.jsx';
 
 const Home = () => {
-  const titleStyle = {
-    marginTop: '100px' 
+  const headerStyle = {
+    textAlign: 'center',
+    color: 'black',
+    padding: '10px',
   };
 
   return (
     <div>
-      <h1 style={titleStyle}>Willkommen auf der Homepage</h1>
-      <p>Hier können Sie Informationen über unsere Website finden.</p>
+      <h2 style={headerStyle}>Hast du ein Problem? Eröffne hier dein Ticket!</h2>
+      <CreateTicket />
     </div>
   );
-}
+};
 
 export default Home;
