@@ -8,6 +8,8 @@ import NotFound from "./components/notFound.jsx";
 import Datenschutz from "./components/Datenschutz.jsx";
 import TicketView from "./components/TicketView.jsx";
 import Impressum from "./components/Impressum.jsx";
+import TicketDetail from "./components/TicketDetail.jsx";
+
 
 
 
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
       { path: "/Datenschutz", element: <Datenschutz /> },
       { path: "/TicketView", element: <TicketView /> },
       { path: "/Impressum", element: <Impressum /> },
+      { path: "/TicketDetail", element: <TicketDetail />},
+      { path: "/TicketDetail/:id", element: <TicketDetail />},
 
       { path: "*", element: <NotFound /> },
     ],

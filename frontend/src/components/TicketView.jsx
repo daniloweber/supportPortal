@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -133,7 +134,7 @@ const TicketView = () => {
     };
 
 
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null);
 
     const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
         <input 
@@ -149,7 +150,7 @@ const TicketView = () => {
     };
 
     const handleDateFilterChange = (date) => {
-        setFilterDate(date);
+        setFilterDate(date || new Date());
     };
 
     const filteredTickets = tickets.filter(ticket => {
@@ -207,28 +208,30 @@ const TicketView = () => {
                 </thead>
                 <tbody>
                 {filteredTickets.map((ticket, index) => (
-                        <tr style={trStyle(index + 1)} key={ticket.id}>
-                            <td style={tdStyle}>{ticket.id}</td>
-                            <td style={tdStyle}>{ticket.date}</td>
-                            <td style={tdStyle}>{ticket.subject}</td>
-                            <td style={tdStyle}>{ticket.firstName}</td>
-                            <td style={tdStyle}>{ticket.lastName}</td>
-                            <td style={tdStyle}>{ticket.department}</td>
-                            <td style={tdStyle}>{ticket.email}</td>
-                            <td style={tdStyle}>{ticket.phoneNumber}</td>
-                            <td style={tdStyle}>
-                                <select 
-                                    style={selectStyle} 
-                                    value={ticket.status} 
-                                    onChange={e => handleStatusChange(ticket.id, e.target.value)}
-                                >
-                                    <option>Offen</option>
-                                    <option>In Bearbeitung</option>
-                                    <option>Geschlossen</option>
-                                </select>
-                            </td>
-                        </tr>
-                    ))}
+                <tr style={trStyle(index + 1)} key={ticket.id}>
+                    <td style={tdStyle}>
+                        <Link to={`/ticketdetail/${ticket.id}`}>{ticket.id}</Link>
+                    </td>
+                    <td style={tdStyle}>{ticket.date}</td>
+                    <td style={tdStyle}>{ticket.subject}</td>
+                    <td style={tdStyle}>{ticket.firstName}</td>
+                    <td style={tdStyle}>{ticket.lastName}</td>
+                    <td style={tdStyle}>{ticket.department}</td>
+                    <td style={tdStyle}>{ticket.email}</td>
+                    <td style={tdStyle}>{ticket.phoneNumber}</td>
+                    <td style={tdStyle}>
+                        <select 
+                            style={selectStyle} 
+                            value={ticket.status} 
+                            onChange={e => handleStatusChange(ticket.id, e.target.value)}
+                        >
+                            <option>Offen</option>
+                            <option>In Bearbeitung</option>
+                            <option>Geschlossen</option>
+                        </select>
+                    </td>
+                </tr>
+            ))}
                 </tbody>
             </table>
         </div>

@@ -45,7 +45,7 @@ const createTicket = () => {
     <form style={formStyle} onSubmit={handleSubmit}>
       <input style={inputStyle} type="text" placeholder="Vorname" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       <input style={inputStyle} type="text" placeholder="Nachname" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-      <input style={inputStyle} type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input style={inputStyle} type="email" placeholder="E-Mail" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input style={inputStyle} type="tel" placeholder="Telefonnummer" value={phone} onChange={(e) => setPhone(e.target.value)} />
       <input style={inputStyle} type="text" placeholder="Betreff" value={subject} onChange={(e) => setSubject(e.target.value)} />
       <input style={inputStyle} type="text" placeholder="Abteilung" value={department} onChange={(e) => setDepartment(e.target.value)} />
