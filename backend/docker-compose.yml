@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  mongodb:
+    container_name: nosqlproject
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: test
+
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - database-data:/data/db
+
+    ports:
+      - 27017:27017
+
+    command: [--auth]
+
+
+volumes:
+    database-data:

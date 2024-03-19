@@ -1,15 +1,14 @@
-import express, {Express, Request, Response } from 'express';
-import multer from "multer";
-import {Db, MongoClient} from "mongodb";
-import * as fs from "fs";
+import express, {Express} from "express";
+import routerTicket from "./v1/router/routerTicket";
+import routerLogin from "./v1/router/routerLogin";
 
-const uri = "mongodb+srv://testuser:d2VWLT6ihzsaKRjS@databasetest1.kwlntni.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
 
 const app: Express = express();
-const upload = multer({dest: 'uploads/'});
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use('/ticket', routerTicket);
+app.use('/user', routerLogin);
 
 const port: number = 8080;
 app.listen(port, () => {
