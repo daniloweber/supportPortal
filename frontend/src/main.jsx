@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: "/TicketDetail", element: <TicketDetail />},
       { path: "/TicketDetail/:id", element: <TicketDetail />},
       { path: "Login", element: <Login />},
-      { path: "/register", element: <Register />},
+      { path: "/Register", element: <Register />},
 
       { path: "*", element: <NotFound /> },
     ],

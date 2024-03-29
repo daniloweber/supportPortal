@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
-const register = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [department, setDepartment] = useState('');
+const Register = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+    };
 
     const formStyle = {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'start',
+        alignItems: 'center',
         gap: '1em',
         color: 'black',
         backgroundColor: 'white',
@@ -28,22 +29,37 @@ const register = () => {
         width: '100%',
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        console.log(`Vorname: ${firstName}, Nachname: ${lastName}, E-Mail: ${email}, Telefonnummer: ${phoneNumber}, Abteilung: ${department}`);
-    };
-
     return (
-        <form style={formStyle} onSubmit={handleSubmit}>
-            <input style={inputStyle} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required placeholder="Vorname" />
-            <input style={inputStyle} type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required placeholder="Nachname" />
-            <input style={inputStyle} type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="E-Mail" />
-            <input style={inputStyle} type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required placeholder="Telefonnummer" />
-            <input style={inputStyle} type="text" value={department} onChange={(e) => setDepartment(e.target.value)} required placeholder="Abteilung" />
-            <button style={inputStyle} type="submit">Registrieren</button>
-        </form>
+        <div style={{ textAlign: 'center', fontSize: '20px', marginBottom: '20px' }}>
+            <h2>Registrierung</h2>
+            <form onSubmit={handleSubmit(onSubmit)} style={formStyle}>
+                <input {...register("firstName", { required: "Vorname ist erforderlich" })} placeholder="Vorname" style={inputStyle} />
+                {errors.firstName && <p>{errors.firstName.message}</p>}
+
+                <input {...register("lastName", { required: "Nachname ist erforderlich" })} placeholder="Nachname" style={inputStyle} />
+                {errors.lastName && <p>{errors.lastName.message}</p>}
+
+                <input {...register("email", { required: "E-Mail ist erforderlich", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Ungültige E-Mail-Adresse" } })} placeholder="E-Mail" style={inputStyle} />
+                {errors.email && <p>{errors.email.message}</p>}
+
+                <input {...register("phoneNumber", { required: "Telefonnummer ist erforderlich", minLength: { value: 10, message: "Telefonnummer muss mindestens 10 Ziffern lang sein" } })} placeholder="Telefonnummer" style={inputStyle} />
+                {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+
+                <select {...register("userRole", { required: "Nutzerrolle ist erforderlich" })} style={inputStyle}>
+                    <option value="">Wählen Sie eine Rolle</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Support-Mitarbeiter">Support-Mitarbeiter</option>
+                    <option value="User">User</option>
+                </select>
+                {errors.userRole && <p>{errors.userRole.message}</p>}
+
+                <input {...register("password", { required: "Passwort ist erforderlich", minLength: { value: 8, message: "Passwort muss mindestens 8 Zeichen lang sein" } })} placeholder="Passwort" style={inputStyle} />
+                {errors.password && <p>{errors.password.message}</p>}
+
+                <button style={inputStyle} type="submit">Registrieren</button>
+            </form>
+        </div>
     );
 };
 
-export default register;
+export default Register;

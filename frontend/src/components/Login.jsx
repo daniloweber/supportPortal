@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
-      <input style={inputStyle} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input style={inputStyle} type="email" placeholder="E-Mail" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input style={inputStyle} type="password" placeholder="Passwort" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button style={inputStyle} type="submit">Einloggen</button>
       <div style={{ textAlign: 'center', fontSize: '20px' }}>
