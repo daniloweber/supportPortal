@@ -1,65 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const TicketDetail = ({ tickets = [] }) => {
+const TicketDetail = () => {
     const { id } = useParams();
-    const [ticket, setTicket] = useState(null);
+   
+    const [ticket, setTicket] = useState();
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        const fetchedTicket = tickets.find(ticket => ticket.id === id);
-        setTicket(fetchedTicket);
-    }, [id, tickets]);
+        const fetchData = async () => {
+            const response = await fetch(`http://localhost:8080/ticket/get/${id}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                method: 'GET'
+            });
+            const data = await response.json();
+            setTicket(data);
+            setLoaded(true);
+        };
+        fetchData();
+    }, [id]);
 
-    if (!ticket) {
-        return <div>Loading...</div>;
-    }
-
+    
+    console.log(ticket);
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 70px' }}>
-            <h1>Ticket {ticket.id}</h1>
-            <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
-                <tbody>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Vorname:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.firstName}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Nachname:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.lastName}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>E-Mail:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.email}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Telefonnummer:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.phone}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Betreff:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.subject}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Abteilung:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.department}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Beschreibung:</td>
-                        <td style={{ border: '1px solid black', whiteSpace: 'pre-line' }}>{ticket.description}</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Status:</td>
-                        <td style={{ border: '1px solid black' }}>{ticket.status}</td>
-                    </tr>
-                    {ticket.files && ticket.files.map((fileUrl, index) => (
-                        <tr key={index}>
-                            <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Datei {index + 1}:</td>
-                            <td style={{ border: '1px solid black' }}><a href={fileUrl}>Link zur Datei</a></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <>
+            {ticket && (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 70px' }}>
+                    <h1>Ticket {ticket._id}</h1>
+                    <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
+                        <tbody>
+                            <tr>
+                                <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Betreff:</td>
+                                <td style={{ border: '1px solid black' }}>{ticket.title}</td>
+                            </tr>
+    
+                            <tr>
+                                <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Beschreibung:</td>
+                                <td style={{ border: '1px solid black', whiteSpace: 'pre-line' }}>{ticket.description}</td>
+                            </tr>
+                            <tr>
+                                <td style={{ border: '1px solid black', fontWeight: 'bold' }}>Status:</td>
+                                <td style={{ border: '1px solid black' }}>{ticket.status}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </>
     );
 };
 

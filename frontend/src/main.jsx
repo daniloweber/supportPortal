@@ -26,11 +26,11 @@ const router = createBrowserRouter([
       { path: "/Datenschutz", element: <Datenschutz /> },
       { path: "/TicketView", element: <TicketView /> },
       { path: "/Impressum", element: <Impressum /> },
-      { path: "/TicketDetail", element: <TicketDetail />},
-      { path: "/TicketDetail/:id", element: <TicketDetail />},
+      { path: "/ticket/:id", element: <TicketDetail />},
       { path: "Login", element: <Login />},
       { path: "/Register", element: <Register />},
       { path: "/Logout", element: <Logout />},
+
 
       { path: "*", element: <NotFound /> },
     ],
