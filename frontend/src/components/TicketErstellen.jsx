@@ -1,85 +1,51 @@
 import React, { useState } from 'react';
 
-const createTicket = () => {
-  const [name, setFirstName] = useState('');
-  const [surname, setLastName] = useState('');
-  const [mail, setMail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [file, setFile] = useState(null);
+//für styling bootstrap forms https://getbootstrap.com/docs/5.3/forms/form-control/
 
-  const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-    gap: '1em',
-    color: 'black',
-    backgroundColor: 'white',
-    padding: '1em',
-    borderRadius: '8px',
-    maxWidth: '500px',
-    margin: '20px auto',  
-    marginBottom: '100px',  
-  };
+function createTicket() {
+    const [file, setFile] = useState(null);
 
-  const inputStyle = {
-    padding: '0.5em',
-    borderRadius: '4px',
-    border: '1px solid black',
-    width: '100%',
-  };
-
-  const fileInputStyle = {
-    ...inputStyle,
-    border: 'none',
-  };
-//Logik für das Erstellen eines Tickets
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    const ticketData = {
-      title: data.subject,
-      description: data.description,
-      file: data.file,
+    const onFileChange = (event) => {
+        setFile(event.target.files[0]);
     };
-  
-    const response = await fetch('http://localhost:8081/ticket/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-      },
-      body: JSON.stringify(ticketData),
-    });
-  
-    const responseData = await response.json();
-    alert(responseData.message);
 
-    setFirstName('');
-    setLastName('');
-    setMail('');
-    setPhone('');
-    setTitle('');
-    setDescription('');
-    setFile(null);
- 
+    const onFormSubmit = (event) => {
+        event.preventDefault();
 
-  };
+        
 
-  return (
-    <form style={formStyle} onSubmit={handleSubmit}>
-      <input style={inputStyle} type="text" placeholder="Vorname" value={name} onChange={(e) => setFirstName(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Nachname" value={surname} onChange={(e) => setLastName(e.target.value)} />
-      <input style={inputStyle} type="email" placeholder="E-Mail" value={mail} onChange={(e) => setMail(e.target.value)} />
-      <input style={inputStyle} type="tel" placeholder="Telefonnummer" value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Betreff" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <textarea style={inputStyle} placeholder="Bitte beschreiben Sie hier Ihr Problem" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <input style={fileInputStyle} type="file" multiple onChange={(e) => setFile(e.target.files)} />
-      <button style={inputStyle} type="submit">Senden</button>
-    </form>
-  );
+const myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token')); 
+
+const formdata = new FormData();
+formdata.append('uploaded_file', file);
+formdata.append("title", document.getElementById('title').value);
+formdata.append("description", document.getElementById('description').value);
+
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: formdata,
+  redirect: "follow"
 };
+
+fetch("http://localhost:8080/ticket/create", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+
+    }
+    return (
+        <form onSubmit={onFormSubmit}>
+            <div className="form-group">
+            <input  type="text" placeholder="Betreff" name='title' id='title' />
+            <textarea  placeholder="Bitte beschreiben Sie hier Ihr Problem" name='description' id='description'/>
+                <input type="file" className="form-control-file" onChange={onFileChange} />
+                <input type="submit" value="Upload" className="btn btn-default" />
+            </div>
+        </form>
+    );
+}
+
 
 export default createTicket;
