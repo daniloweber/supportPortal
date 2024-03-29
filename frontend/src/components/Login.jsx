@@ -28,7 +28,6 @@ const Login = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle login
     const response = await fetch('http://localhost:8080/user/login', {
       method: 'POST',
       headers: {
