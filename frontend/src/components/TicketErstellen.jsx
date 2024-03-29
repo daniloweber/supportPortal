@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
 const createTicket = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setFirstName] = useState('');
+  const [surname, setLastName] = useState('');
   const [mail, setMail] = useState('');
   const [phone, setPhone] = useState('');
-  const [subject, setSubject] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [department, setDepartment] = useState('');
   const [file, setFile] = useState(null);
 
   const formStyle = {
@@ -35,6 +34,7 @@ const createTicket = () => {
     ...inputStyle,
     border: 'none',
   };
+//Logik für das Erstellen eines Tickets
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,9 +59,9 @@ const createTicket = () => {
 
     setFirstName('');
     setLastName('');
-    setmail('');
+    setMail('');
     setPhone('');
-    setSubject('');
+    setTitle('');
     setDescription('');
     setFile(null);
  
@@ -72,9 +72,9 @@ const createTicket = () => {
     <form style={formStyle} onSubmit={handleSubmit}>
       <input style={inputStyle} type="text" placeholder="Vorname" value={name} onChange={(e) => setFirstName(e.target.value)} />
       <input style={inputStyle} type="text" placeholder="Nachname" value={surname} onChange={(e) => setLastName(e.target.value)} />
-      <input style={inputStyle} type="email" placeholder="E-Mail" value={mail} onChange={(e) => setmail(e.target.value)} />
+      <input style={inputStyle} type="email" placeholder="E-Mail" value={mail} onChange={(e) => setMail(e.target.value)} />
       <input style={inputStyle} type="tel" placeholder="Telefonnummer" value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Betreff" value={title} onChange={(e) => setSubject(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Betreff" value={title} onChange={(e) => setTitle(e.target.value)} />
       <textarea style={inputStyle} placeholder="Bitte beschreiben Sie hier Ihr Problem" value={description} onChange={(e) => setDescription(e.target.value)} />
       <input style={fileInputStyle} type="file" multiple onChange={(e) => setFile(e.target.files)} />
       <button style={inputStyle} type="submit">Senden</button>
