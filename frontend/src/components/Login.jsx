@@ -42,11 +42,9 @@ const Login = () => {
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
-<<<<<<< Updated upstream
-      <input style={inputStyle} type="email" placeholder="E-Mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-=======
+      
       <input style={inputStyle} type="mail" placeholder="E-Mail" value={mail} onChange={(e) => setMail(e.target.value)} />
->>>>>>> Stashed changes
+
       <input style={inputStyle} type="password" placeholder="Passwort" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button style={inputStyle} type="submit">Einloggen</button>
       <div style={{ textAlign: 'center', fontSize: '20px' }}>
@@ -57,4 +55,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login;   
