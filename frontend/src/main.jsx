@@ -9,7 +9,7 @@ import Datenschutz from "./components/Datenschutz.jsx";
 import TicketView from "./components/TicketView.jsx";
 import Impressum from "./components/Impressum.jsx";
 import TicketDetail from "./components/TicketDetail.jsx";
-import Registrierung from "./components/Registrierung.jsx";
+import Register from "./components/Registrierung.jsx";
 import Login from "./components/Login.jsx";
 
 
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: "/TicketDetail", element: <TicketDetail />},
       { path: "/TicketDetail/:id", element: <TicketDetail />},
       { path: "Login", element: <Login />},
-      { path: "/Registrierung", element: <Registrierung />},
+      { path: "/register", element: <Register />},
 
       { path: "*", element: <NotFound /> },
     ],
