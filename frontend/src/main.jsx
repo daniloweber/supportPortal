@@ -11,6 +11,7 @@ import Impressum from "./components/Impressum.jsx";
 import TicketDetail from "./components/TicketDetail.jsx";
 import Register from "./components/Registrierung.jsx";
 import Login from "./components/Login.jsx";
+import Logout from "./components/Logout.jsx";
 
 
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/TicketDetail/:id", element: <TicketDetail />},
       { path: "Login", element: <Login />},
       { path: "/Register", element: <Register />},
+      { path: "/Logout", element: <Logout />},
 
       { path: "*", element: <NotFound /> },
     ],

@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
 
 const TicketView = () => {
-
-    const [filterStatus, setFilterStatus] = useState("");
-    const [filterDate, setFilterDate] = useState(null);
+    const [tickets, setTickets] = useState();
+    const [filterStatus] = useState("");
+    useEffect(() => {
+        const fetchTickets = async () => {
+            const response = await fetch('http://localhost:8080/ticket/list', {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                method: 'GET'
+                });
+            const data = await response.json();
+            setTickets([data]);
+        };
+        fetchTickets();
+    }, []);
+    console.log(tickets);
     
-    const [tickets, setTickets] = useState([
+    /*const [tickets, setTickets] = useState([
         {
             id: 1,
             date: '2022-03-01',
@@ -76,7 +88,7 @@ const TicketView = () => {
             status: "In Bearbeitung"
           }
           
-    ]);
+    ]);*/
 
     const tableStyle = {
         marginTop: '20px',
@@ -110,88 +122,17 @@ const TicketView = () => {
         border: '1px solid #ddd'
     };
 
-    const handleStatusChange = (id, newStatus) => {
-        setTickets(tickets.map(ticket => 
-            ticket.id === id ? { ...ticket, status: newStatus } : ticket
-        ));
-    };
-
-    const filterMenuStyle = {
-        marginTop: '20px',
-        marginLeft: '20px',
-        marginRight: '20px',
-        display: 'flex',
-        alignItems: 'center'
-    };
-    
-    const filterLabelStyle = {
-        fontWeight: 'bold',
-        marginRight: '10px'
-    };
-    
-    const filterSelectStyle = {
-        border: 'none'
-    };
+   
 
 
-    const [startDate, setStartDate] = useState(null);
 
-    const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
-        <input 
-            style={{ border: 'none' }} 
-            onClick={onClick} 
-            ref={ref} 
-            value={value}
-        />
-    ));
+    const [startDate] = useState(null);
 
-    const handleFilterChange = (event) => {
-        setFilterStatus(event.target.value);
-    };
-
-    const handleDateFilterChange = (date) => {
-        setFilterDate(date || new Date());
-    };
-
-    const filteredTickets = tickets.filter(ticket => {
-        const ticketDate = new Date(ticket.date);
-        return (filterStatus === "" || ticket.status === filterStatus) &&
-               (!startDate || (ticketDate.getDate() === startDate.getDate() &&
-                                ticketDate.getMonth() === startDate.getMonth() &&
-                                ticketDate.getFullYear() === startDate.getFullYear()));
-    });
-
-    const resetStatusFilter = () => {
-        setFilterStatus("");
-    };
-    
-    const resetDateFilter = () => {
-        setStartDate(null);
-    };
+   
 
     return (
         <div>
-            <div style={filterMenuStyle}>
-            <label style={filterLabelStyle}>
-                Status:
-                <select style={filterSelectStyle} onChange={handleFilterChange}>
-                    <option value="">Alle</option>
-                    <option value="Offen">Offen</option>
-                    <option value="In Bearbeitung">In Bearbeitung</option>
-                    <option value="Geschlossen">Geschlossen</option>
-                </select>
-                <button onClick={resetStatusFilter}>Filter zurücksetzen</button>
-            </label>
-            <label style={filterLabelStyle}>
-            Datum:
-            <DatePicker 
-                selected={startDate} 
-                onChange={handleDateFilterChange} 
-                customInput={<CustomInput />}
-            />
-            <button onClick={resetDateFilter}>Filter zurücksetzen</button>
-        </label>
-</div>
+            
             <table style={tableStyle}>
                 <thead>
                     <tr style={trStyle(0)}>
@@ -207,7 +148,7 @@ const TicketView = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {filteredTickets.map((ticket, index) => (
+                {tickets && tickets.map((ticket, index) => (
                 <tr style={trStyle(index + 1)} key={ticket.id}>
                     <td style={tdStyle}>
                         <Link to={`/ticketdetail/${ticket.id}`}>{ticket.id}</Link>
@@ -223,7 +164,7 @@ const TicketView = () => {
                         <select 
                             style={selectStyle} 
                             value={ticket.status} 
-                            onChange={e => handleStatusChange(ticket.id, e.target.value)}
+                            
                         >
                             <option>Offen</option>
                             <option>In Bearbeitung</option>
