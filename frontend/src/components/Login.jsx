@@ -8,7 +8,7 @@ const Login = () => {
   const formStyle = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'start',
+    alignItems: 'center',
     gap: '1em',
     color: 'black',
     backgroundColor: 'white',
@@ -36,9 +36,9 @@ const Login = () => {
       <input style={inputStyle} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input style={inputStyle} type="password" placeholder="Passwort" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button style={inputStyle} type="submit">Einloggen</button>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'center', fontSize: '20px' }}>
         <p>Noch kein Konto?</p>
-        <Link to="/register">Zur Registrierung</Link>
+    <Link to="/register" style={{ color: 'black', textDecoration: 'underline' }}>Hier zur Registrierung</Link>
       </div>
     </form>
   );
