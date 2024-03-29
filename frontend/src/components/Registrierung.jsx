@@ -66,9 +66,9 @@ const Register = () => {
 
                 <select {...register("role", { required: "Nutzerrolle ist erforderlich" })} style={inputStyle}>
                     <option value="">Wählen Sie eine Rolle</option>
-                    <option value="Administrator">Administrator</option>
-                    <option value="Support-Mitarbeiter">Support-Mitarbeiter</option>
-                    <option value="User">User</option>
+                    <option value="admin">Administrator</option>
+                    <option value="stuff">Support-Mitarbeiter</option>
+                    <option value="customer">User</option>
                 </select>
                 {errors.userRole && <p>{errors.userRole.message}</p>}
 
