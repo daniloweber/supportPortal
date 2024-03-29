@@ -1,11 +1,12 @@
 import express, {Express} from "express";
 import routerTicket from "./v1/router/routerTicket";
 import routerLogin from "./v1/router/routerLogin";
-
+import cors from "cors";
 
 const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors());
 
 app.use('/ticket', routerTicket);
 app.use('/user', routerLogin);
