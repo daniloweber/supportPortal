@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
 
   const formStyle = {
@@ -26,14 +26,27 @@ const Login = () => {
     width: '100%',
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle login
+    const response = await fetch('http://localhost:8080/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ mail, password }),
+    });
+    const data = await response.json();
+    localStorage.setItem('token', data.token);
   };
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
+<<<<<<< Updated upstream
       <input style={inputStyle} type="email" placeholder="E-Mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+=======
+      <input style={inputStyle} type="mail" placeholder="E-Mail" value={mail} onChange={(e) => setMail(e.target.value)} />
+>>>>>>> Stashed changes
       <input style={inputStyle} type="password" placeholder="Passwort" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button style={inputStyle} type="submit">Einloggen</button>
       <div style={{ textAlign: 'center', fontSize: '20px' }}>
