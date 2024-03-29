@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Logout from './Logout';
+import { checkLoginState } from './CheckLoginState';
 
 const Header = () => {
     const [isHomeClicked, setIsHomeClicked] = useState(false);
     const [isTicketClicked, setIsTicketClicked] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const fetch = async () => {
+        const response = await checkLoginState();
+        setIsLoggedIn(response);
+        }
+        fetch();
+    }, [isLoggedIn]);
 
     const handleHomeClick = () => {
         setIsHomeClicked(true);
@@ -27,7 +38,13 @@ const Header = () => {
                 <Link to="/" onClick={handleHomeClick} style={{ margin: '0 80px', color: 'black', textDecoration: 'none', fontSize: '20px', transform: isHomeClicked ? 'scale(0.9)' : 'scale(1)', transition: 'transform 0.25s' }}>Home</Link> 
                 <Link to="/TicketView" onClick={handleTicketClick} style={{ margin: '0 10px', color: 'black', textDecoration: 'none', fontSize: '20px', transform: isTicketClicked ? 'scale(0.9)' : 'scale(1)', transition: 'transform 0.25s' }}>Ticket Übersicht</Link> 
             </div>
-            <div style={{ flex: 1 }}></div>
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            {isLoggedIn ? 
+            <Logout />
+                :
+                <Link to="/Login" style={{ marginRight: '350px', color: 'black', textDecoration: 'none', fontSize: '20px', border: '1px solid black', padding: '10px', borderRadius: '5px' }}>Login</Link>
+            }
+            </div>
         </header>
         </>
     );
