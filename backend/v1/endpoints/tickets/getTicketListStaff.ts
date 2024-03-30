@@ -40,7 +40,6 @@ export async function getTicketListStaff(req: Request, res: Response) {
                     const database2: Db = client.db('supportPortal');
                     const collection2 = database2.collection('users');
                     const result2 = await collection2.findOne({_id: new ObjectId(result[i].userid.toString())});
-                    await client.close();
                     if (!result2) {
                         res.status(404).send({message: 'User not found'});
                         return;
@@ -48,7 +47,7 @@ export async function getTicketListStaff(req: Request, res: Response) {
                     result[i].name = result2.name;
                     result[i].surname = result2.surname;
                 }
-
+                await client.close();
                 res.send(result);
             }
         }

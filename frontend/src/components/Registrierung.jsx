@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        console.log(data);
 
         const userData = {
             mail: data.mail,
@@ -25,6 +26,7 @@ const Register = () => {
         });
         const responseData = await response.json();
         localStorage.setItem('token', responseData.token);
+        navigate('/');
     };
 
     const formStyle = {

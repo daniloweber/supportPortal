@@ -1,49 +1,45 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
 
 function createTicket() {
-    const navigate = useNavigate();
+
     const [file, setFile] = useState(null);
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
     };
 
-    const onFormSubmit = (event) => {
+    const onFormSubmit = async (event) => {
         event.preventDefault();
 
         
 
-const myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token')); 
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
 
-const formdata = new FormData();
-formdata.append('uploaded_file', file);
-formdata.append("title", document.getElementById('title').value);
-formdata.append("description", document.getElementById('description').value);
+    const formdata = new FormData();
+    formdata.append('uploaded_file', file);
+    formdata.append("title", document.getElementById('title').value);
+    formdata.append("description", document.getElementById('description').value);
 
-const requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: formdata,
-  redirect: "follow"
-};
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formdata,
+      redirect: "follow"
+    };
 
-fetch("http://localhost:8080/ticket/create", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error));
 
-  alert(data.message);
+    const response = await fetch("http://localhost:8080/ticket/create", requestOptions)
+        const data = await response.json();
 
-        setTimeout(() => {
-            navigate(`/TicketView`);
-        }, 3000);
-        
+    alert(data.message);
+    const form = document.getElementById('ticketCreationForm');
+    form.reset();
 
     }
+
     return (
         <div className="d-flex justify-content-center align-items-center vh-100" style={{ marginTop: '-100px' }}>
-          <form onSubmit={onFormSubmit} className="col-6">
+          <form onSubmit={onFormSubmit} className="col-6" id={"ticketCreationForm"}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">Problem</label>
               <input type="text" className="form-control" id="title" />
@@ -60,7 +56,5 @@ fetch("http://localhost:8080/ticket/create", requestOptions)
           </form>
         </div>
       );
-    };
-
-
+    }
 export default createTicket;

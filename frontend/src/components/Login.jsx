@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const formStyle = {
     display: 'flex',
@@ -37,6 +38,8 @@ const Login = () => {
     });
     const data = await response.json();
     localStorage.setItem('token', data.token);
+    navigate('/')
+    setTimeout(() => window.location.reload(), 1000);
   };
 
   return (

@@ -21,7 +21,6 @@ const TicketViewStaff = () => {
         };
         fetchTickets();
     }, []);
-    console.log(tickets);
 
     const tableStyle = {
         marginTop: '20px',

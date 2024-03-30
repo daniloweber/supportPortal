@@ -1,10 +1,13 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 
 const Logout = (props) => {
-    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        navigate('/');
+        setTimeout(() => window.location.reload(), 1000);
     }
 
     return (
