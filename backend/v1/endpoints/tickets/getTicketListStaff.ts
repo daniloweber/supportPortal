@@ -29,7 +29,26 @@ export async function getTicketListStaff(req: Request, res: Response) {
                 const database: Db = client.db('supportPortal');
                 const collection = database.collection('tickets');
                 const result = await collection.find({editorid: new ObjectId(payload.id)}).toArray();
-                await client.close();
+
+                if (!result) {
+                    res.status(404).send({message: 'Ticket not found'});
+                    return;
+                }
+
+                for (let i = 0; i < result.length; i++) {
+                    await client.connect();
+                    const database2: Db = client.db('supportPortal');
+                    const collection2 = database2.collection('users');
+                    const result2 = await collection2.findOne({_id: new ObjectId(result[i].userid.toString())});
+                    await client.close();
+                    if (!result2) {
+                        res.status(404).send({message: 'User not found'});
+                        return;
+                    }
+                    result[i].name = result2.name;
+                    result[i].surname = result2.surname;
+                }
+
                 res.send(result);
             }
         }
