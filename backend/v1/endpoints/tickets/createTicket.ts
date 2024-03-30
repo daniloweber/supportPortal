@@ -41,7 +41,7 @@ export async function createTicket (req: Request, res: Response) {
                         const title = name.split('.')[0];
                         const format = name.split('.')[1];
 
-                        const result = await collection.insertOne({
+                        await collection.insertOne({
                             title: req.body.title,
                             description: req.body.description,
                             userid: payload.id,
@@ -50,19 +50,19 @@ export async function createTicket (req: Request, res: Response) {
                             fileName: title,
                             fileFormat: format,
                             status: 'new',
-                            editorid: 'none'
+                            editorid: payload.id
                         });
 
                         fs.unlinkSync(req.file.path);
 
                     } else {
-                        const result = await collection.insertOne({
+                         await collection.insertOne({
                             title: req.body.title,
                             description: req.body.description,
                             userid: payload.id,
                             timestamp: new Date().toISOString(),
                             status: 'new',
-                            editorid: 'none'
+                            editorid: payload.id
                         });
                     }
 
