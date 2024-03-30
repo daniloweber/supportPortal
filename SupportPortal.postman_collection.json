@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "75a45993-c34f-466f-8698-9111650d3e49",
+		"name": "SupportPortal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30829445"
+	},
+	"item": [
+		{
+			"name": "createUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mail\": \"test\",\r\n    \"password\": \"test1\",\r\n    \"name\": \"name\",\r\n    \"surname\": \"surname\",\r\n    \"phone\": \"abc\",\r\n    \"role\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/user/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mail\": \"test\",\r\n    \"password\": \"test1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "createTicket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY2MDcxNzk4MWJkODhiNGVhMjZmMWZjYiIsImlhdCI6MTcxMTc0OTEzNywiZXhwIjoxNzExODM1NTM3fQ.LoFFizsQ8UVR5_ajBBTzFqngR-vKt_m5ZsoUE5VKXFQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uploaded_file",
+							"type": "file",
+							"src": "postman-cloud:///1eedb02d-d79d-4230-b20b-8565337e9a43"
+						},
+						{
+							"key": "title",
+							"value": "abc",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "avc",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8080/ticket/create"
+			},
+			"response": []
+		},
+		{
+			"name": "getTicketList",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY2MDcxNzk4MWJkODhiNGVhMjZmMWZjYiIsImlhdCI6MTcxMTc0OTEzNywiZXhwIjoxNzExODM1NTM3fQ.LoFFizsQ8UVR5_ajBBTzFqngR-vKt_m5ZsoUE5VKXFQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/ticket/list"
+			},
+			"response": []
+		},
+		{
+			"name": "getTicketStaffList",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY2MDcwOTZlMmRiNWQxZTI1OWE5NzRhOSIsImlhdCI6MTcxMTc1MDMzOSwiZXhwIjoxNzExODM2NzM5fQ.9OrmxdU5RpT76ZQWQ3OSgxgwKpOdj_qD-FfuhyrarvE"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/ticket/list/staff"
+			},
+			"response": []
+		},
+		{
+			"name": "getTicket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY2MDcwOTZlMmRiNWQxZTI1OWE5NzRhOSIsImlhdCI6MTcxMTc1MDMzOSwiZXhwIjoxNzExODM2NzM5fQ.9OrmxdU5RpT76ZQWQ3OSgxgwKpOdj_qD-FfuhyrarvE"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/ticket/get/66072a3688e5f369d0cfaa57"
+			},
+			"response": []
+		},
+		{
+			"name": "updateTicket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY2MDcwOTZlMmRiNWQxZTI1OWE5NzRhOSIsImlhdCI6MTcxMTc1MDMzOSwiZXhwIjoxNzExODM2NzM5fQ.9OrmxdU5RpT76ZQWQ3OSgxgwKpOdj_qD-FfuhyrarvE"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "New Ticket",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Here is a new description",
+							"type": "text"
+						},
+						{
+							"key": "editorid",
+							"value": "6607096e2db5d1e259a974a9",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "in Work",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8080/ticket/update/66072a3688e5f369d0cfaa57"
+			},
+			"response": []
+		}
+	]
+}
