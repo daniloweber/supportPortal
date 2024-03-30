@@ -12,6 +12,7 @@ import TicketDetail from "./components/TicketDetail.jsx";
 import Register from "./components/Registrierung.jsx";
 import Login from "./components/Login.jsx";
 import Logout from "./components/Logout.jsx";
+import TicketViewStaff from "./components/TicketViewStaff.jsx";
 
 
 
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "Login", element: <Login />},
       { path: "/Register", element: <Register />},
       { path: "/Logout", element: <Logout />},
+      { path: "/TicketViewStaff", element: <TicketViewStaff />},
 
 
       { path: "*", element: <NotFound /> },
