@@ -57,7 +57,7 @@ export async function updateTicket(req: Request, res: Response) {
 
                         }
                     else {
-                        console.log(req.body);
+
                         result = await collection.updateOne({_id: new ObjectId(req.params.id)}, {
                             $set: {
                                 title: req.body.title,
@@ -68,7 +68,7 @@ export async function updateTicket(req: Request, res: Response) {
                         });
                     }
                     await client.close();
-                    res.send(result);
+                    res.send({message: 'Ticket updated', result: result});
                 } catch (e) {
                     res.status(500).send({message: 'Internal server error'});
                 }

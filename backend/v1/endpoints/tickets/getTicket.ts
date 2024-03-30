@@ -24,7 +24,7 @@ export async function getTicket(req: Request, res: Response) {
                 const database: Db = client.db('supportPortal');
                 const collection = database.collection('tickets');
                 const result = await collection.findOne({_id: new ObjectId(req.params.id)});
-                await client.close();
+
 
                 if (!result) {
                     res.status(404).send({message: 'Ticket not found'});
