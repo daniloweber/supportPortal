@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-const Logout = () => {
+const Logout = (props) => {
     const token = localStorage.getItem('token');
 
     const handleLogout = () => {
@@ -9,8 +8,8 @@ const Logout = () => {
     }
 
     return (
-        <div>
-             <button onClick={handleLogout}>Logout</button> 
+        <div style={props.style}>
+             <button className="btn btn-secondary" onClick={handleLogout}>Logout</button> 
         </div>
     );
 };
